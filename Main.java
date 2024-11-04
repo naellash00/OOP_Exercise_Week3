@@ -9,23 +9,37 @@ public class Main {
         System.out.println(account1.getBalance());
         account1.credit(1000); // 1000 + 1000 = 2000
         System.out.println(account1.getBalance());
-        account1.debit(500); // 2000 - 500 = 1500
-        System.out.println("Balance After Deposit: " + account1.getBalance());
+        if (account1.debit(500) == -1) {
+            System.out.println("You Cant Withdraw");
+        } else {
+          // 2000 - 500 = 1500
+            System.out.println("Balance After Withdraw: " + account1.getBalance());
+        }
 
-       //Account another = new Account("0987654321", "amal", 100);
+        System.out.println("****************************************");
+
+        //Account another = new Account("0987654321", "amal", 100);
         Account another = new Account();
         another.setName("amal");
         another.setID("12345");
-        another.setBalanace(100);
+        another.setBalance(100); // 100
 
         System.out.println(another.getName() + "'s balance before transfer: " + another.getBalance());
         System.out.println(account1.getName() + "'s balance before transfer: " + account1.getBalance());
-        account1.transferTo(another, 1100); // Transfer
-        System.out.println(another.getName() + "'s balance after transfer: " + another.getBalance());
-        System.out.println(account1.getName() + "'s balance after transfer: " + account1.getBalance());
-
+        if (account1.transferTo(another, 300) == -1) {
+            System.out.println("You Cant Transfer");
+        } else {
+            // Transfer
+            System.out.println(another.getName() + "'s balance after transfer: " + another.getBalance());
+            System.out.println(account1.getName() + "'s balance after transfer: " + account1.getBalance());
+        }
+//        if (account1.transferTo(another, 300) != -1) {
+//        } else {
+//            System.out.println("Cant Transfer");
+//        }
 
         System.out.println(account1.toString(account1));
+        System.out.println("*****");
         System.out.println(another.toString(another));
     }
 }
