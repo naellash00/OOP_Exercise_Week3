@@ -43,35 +43,43 @@ public class Account {
         this.name = name;
     }
 
-    public void setBalanace(int balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 
     //withdraw (+)
     public int credit(int amount) {
         //first update the balance
-        setBalanace(balance + amount);
+        setBalance(balance + amount);
         return balance + amount;
     }
 
     //deposit (-)
     public int debit(int amount) {
-        //change the balance
-        setBalanace(balance - amount);
-        return balance - amount;
+        // first check if they have enough balance
+        if (balance >= amount) {
+            //change the balance
+            setBalance(balance - amount);
+            return balance - amount;
+        }
+        return -1;
     }
 
     public int transferTo(Account another, int amount) {
-        int theNewBalance = another.getBalance() + amount;
-        // update the another account balance
-        another.setBalanace(theNewBalance);
-        // the person who transferred should withdraw the amount from their account
-        //setBalanace(getBalance(balance-amount));
-        debit(amount);
-        return theNewBalance;
+        // also check here if they have enough balance
+        int theNewBalance;
+        if(balance >= amount){
+            theNewBalance = another.getBalance() + amount;
+            // update the another account balance
+            another.setBalance(theNewBalance);
+            // the person who transferred should withdraw the amount from their account
+            debit(amount);
+            return theNewBalance;
+        }
+        return -1;
     }
 
-    public String toString(Account account){
+    public String toString(Account account) {
         return " Your Name: " + account.getName()
                 + "\n Your ID: " + account.getID()
                 + "\n Your Balance: " + account.getBalance();
